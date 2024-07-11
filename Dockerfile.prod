@@ -1,0 +1,34 @@
+FROM node:alpine
+#Escolhendo a imagem do node no docker hub
+
+WORKDIR /app
+#Criando um diretório de trabalho
+
+RUN echo "Diretório de trabalho criado"
+
+COPY package*.json ./
+#Copiando os arquivos package.json e package-lock.json para o diretório de trabalho
+
+RUN echo "Copiou os arquivos package.json e package-lock.json"
+
+RUN npm install
+#Instalando Dependências
+
+RUN echo "DEPENDÊNCIAS INSTALADAS"
+
+COPY . .
+#Copiando todos os arquivos do diretório atual para o diretório de trabalho
+
+RUN echo "Copiou todos os arquivos do diretório atual para o diretório de trabalho"
+
+RUN npm run build
+#Buildando o projeto
+
+RUN echo "PROJETO BUILDADO"
+
+EXPOSE 4173
+#Expondo a porta 4173
+
+RUN echo "PORTA EXPOSTA"
+
+CMD ["npm", "run", "preview", "--host", "0.0.0.0"]
